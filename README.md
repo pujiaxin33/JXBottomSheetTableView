@@ -5,7 +5,7 @@ A highly packaged, easy to use custom bottom sheet UITableView.
 
 - Simple: `JXBottomSheetTableView` is subclass of UITableView, so you can use `JXBottomSheetTableView` just like UITableView;
 - Adaptive based on contentSize: Whether you are adding or deleting item.
-- Perfect handling of UITableView's contentOffset and frame scrolling: when the `JXBottomSheetTableView` is `minDisplay` State, scroll `JXBottomSheetTableView` it self. when the `JXBottomSheetTableView` is `maxDisplay` State, scroll `JXBottomSheetTableView` content.
+- Solve big problem: When the TableView scrolls to the top, it can still scroll through the contents without breaking the gesture;
 
 # Preview
 - scroll up & scroll down
