@@ -8,6 +8,17 @@ A highly packaged, easy to use custom bottom sheet UITableView.
 - Perfect handling of UITableView's contentOffset and frame scrolling: when the `JXBottomSheetTableView` is `minDisplay` State, scroll `JXBottomSheetTableView` it self. when the `JXBottomSheetTableView` is `maxDisplay` State, scroll `JXBottomSheetTableView` content.
 
 # Preview
+- scroll up & scroll down
+
+- [Scrolling](https://github.com/pujiaxin33/JXBottomSheetTableView/blob/master/JXBottomSheetTableView/Gif/Scrolling.gif)
+
+- Manual trigger
+
+- [Trigger](https://github.com/pujiaxin33/JXBottomSheetTableView/blob/master/JXBottomSheetTableView/Gif/ManualTrigger.gif)
+
+- Data source changed
+
+- [Changed](https://github.com/pujiaxin33/JXBottomSheetTableView/blob/master/JXBottomSheetTableView/Gif/Changed.gif)
 
 # Usage
 
