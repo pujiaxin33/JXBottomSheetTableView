@@ -10,15 +10,15 @@ A highly packaged, easy to use custom bottom sheet UITableView.
 # Preview
 - scroll up & scroll down
 
-- [Scrolling](https://github.com/pujiaxin33/JXBottomSheetTableView/blob/master/JXBottomSheetTableView/Gif/Scrolling.gif)
+[Scrolling](https://github.com/pujiaxin33/JXBottomSheetTableView/blob/master/JXBottomSheetTableView/Gif/Scrolling.gif)
 
 - Manual trigger
 
-- [Trigger](https://github.com/pujiaxin33/JXBottomSheetTableView/blob/master/JXBottomSheetTableView/Gif/ManualTrigger.gif)
+[Trigger](https://github.com/pujiaxin33/JXBottomSheetTableView/blob/master/JXBottomSheetTableView/Gif/ManualTrigger.gif)
 
 - Data source changed
 
-- [Changed](https://github.com/pujiaxin33/JXBottomSheetTableView/blob/master/JXBottomSheetTableView/Gif/Changed.gif)
+[Changed](https://github.com/pujiaxin33/JXBottomSheetTableView/blob/master/JXBottomSheetTableView/Gif/Changed.gif)
 
 # Usage
 
