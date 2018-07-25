@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		198600AA21083D00004885E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198600A921083D00004885E6 /* AppDelegate.swift */; };
-		198600AC21083D00004885E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198600AB21083D00004885E6 /* ViewController.swift */; };
 		198600AF21083D00004885E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 198600AD21083D00004885E6 /* Main.storyboard */; };
 		198600B121083D01004885E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 198600B021083D01004885E6 /* Assets.xcassets */; };
 		198600B421083D01004885E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 198600B221083D01004885E6 /* LaunchScreen.storyboard */; };
+		198600BD21083D1D004885E6 /* JXBottomSheetTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198600BC21083D1D004885E6 /* JXBottomSheetTableView.swift */; };
+		198600BF21083D2D004885E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198600BE21083D2D004885E6 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		198600A621083D00004885E6 /* JXBottomSheetTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JXBottomSheetTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		198600A921083D00004885E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		198600AB21083D00004885E6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		198600AE21083D00004885E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		198600B021083D01004885E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		198600B321083D01004885E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		198600B521083D01004885E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		198600BC21083D1D004885E6 /* JXBottomSheetTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXBottomSheetTableView.swift; sourceTree = "<group>"; };
+		198600BE21083D2D004885E6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,23 @@
 		198600A821083D00004885E6 /* JXBottomSheetTableView */ = {
 			isa = PBXGroup;
 			children = (
+				198600BB21083D0A004885E6 /* Classes */,
 				198600A921083D00004885E6 /* AppDelegate.swift */,
-				198600AB21083D00004885E6 /* ViewController.swift */,
+				198600BE21083D2D004885E6 /* ViewController.swift */,
 				198600AD21083D00004885E6 /* Main.storyboard */,
 				198600B021083D01004885E6 /* Assets.xcassets */,
 				198600B221083D01004885E6 /* LaunchScreen.storyboard */,
 				198600B521083D01004885E6 /* Info.plist */,
 			);
 			path = JXBottomSheetTableView;
+			sourceTree = "<group>";
+		};
+		198600BB21083D0A004885E6 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				198600BC21083D1D004885E6 /* JXBottomSheetTableView.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,7 +146,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				198600AC21083D00004885E6 /* ViewController.swift in Sources */,
+				198600BF21083D2D004885E6 /* ViewController.swift in Sources */,
+				198600BD21083D1D004885E6 /* JXBottomSheetTableView.swift in Sources */,
 				198600AA21083D00004885E6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
