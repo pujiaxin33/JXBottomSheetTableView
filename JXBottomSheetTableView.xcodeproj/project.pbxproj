@@ -56,6 +56,7 @@
 		198600A821083D00004885E6 /* JXBottomSheetTableView */ = {
 			isa = PBXGroup;
 			children = (
+				198600C221086C3C004885E6 /* Gif */,
 				198600BB21083D0A004885E6 /* Classes */,
 				198600A921083D00004885E6 /* AppDelegate.swift */,
 				198600BE21083D2D004885E6 /* ViewController.swift */,
@@ -73,6 +74,13 @@
 				198600BC21083D1D004885E6 /* JXBottomSheetTableView.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		198600C221086C3C004885E6 /* Gif */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Gif;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

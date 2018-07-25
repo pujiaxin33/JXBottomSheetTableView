@@ -32,7 +32,7 @@ class ViewController: UIViewController {
 
         self.edgesForExtendedLayout = .left
 
-        tableView = JXBottomSheetTableView.init(frame: CGRect.zero, style: .plain)
+        let tableView = JXBottomSheetTableView.init(frame: CGRect.zero, style: .plain)
         tableView.displayState = .maxDisplay
         tableView.defaultMininumDisplayHeight = 150
         tableView.defaultMaxinumDisplayHeight = 400
