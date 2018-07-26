@@ -54,20 +54,16 @@ open class JXBottomSheetTableView: UITableView {
             displayLink.invalidate()
             self.removeObserver(self, forKeyPath: "contentSize")
         }else {
-            self.contentInset = UIEdgeInsets(top: maxinumDisplayHeight - mininumDisplayHeight, left: 0, bottom: 0, right: 0)
+            if self.displayState == .minDisplay {
+                self.frame = CGRect(x: 0, y: newSuperview!.bounds.size.height - mininumDisplayHeight, width: newSuperview!.bounds.size.width, height: maxinumDisplayHeight)
+            }else {
+                self.frame = CGRect(x: 0, y: newSuperview!.bounds.size.height - maxinumDisplayHeight, width: newSuperview!.bounds.size.width, height: maxinumDisplayHeight)
+            }
         }
-    }
-
-    override open func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        if point.y < 0 {
-            return nil
-        }
-        return super.hitTest(point, with: event)
     }
 
     func initializeView() {
         backgroundColor = UIColor.clear
-        bounces = false
 
         displayLink = CADisplayLink(target: self, selector: #selector(startDisplayLink))
         displayLink.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
@@ -75,59 +71,73 @@ open class JXBottomSheetTableView: UITableView {
         self.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
     }
 
-    open override func insertRows(at indexPaths: [IndexPath], with animation: UITableViewRowAnimation) {
-        assertionFailure("Please use reloadData")
-    }
-
-    open override func insertSections(_ sections: IndexSet, with animation: UITableViewRowAnimation) {
-        assertionFailure("Please use reloadData")
-    }
-
-    open override func deleteRows(at indexPaths: [IndexPath], with animation: UITableViewRowAnimation) {
-        assertionFailure("Please use reloadData")
-    }
-
-    open override func deleteSections(_ sections: IndexSet, with animation: UITableViewRowAnimation) {
-        assertionFailure("Please use reloadData")
-    }
-
     open override func layoutSubviews() {
         super.layoutSubviews()
 
         if !isLayouted {
             isLayouted = true
-            refreshStateByContentSize()
+            refreshFrameByContentSize()
         }
     }
 
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "contentSize" && isLayouted {
-            refreshStateByContentSize()
+            refreshFrameByContentSize()
         }
     }
 
-    func refreshStateByContentSize() {
+    public func displayMax() {
+        guard self.frame.origin.y != self.superview!.bounds.size.height - self.maxinumDisplayHeight else {
+            self.displayState = .maxDisplay
+            return
+        }
+
+        self.setContentOffset(CGPoint.zero, animated: true)
+        self.isUserInteractionEnabled = false
+        UIView.animate(withDuration: 0.25, animations: {
+            var frame = self.frame
+            frame.origin.y = self.superview!.bounds.size.height - self.maxinumDisplayHeight
+            self.frame = frame
+        }) { (finished) in
+            self.isUserInteractionEnabled = true
+            self.displayState = .maxDisplay
+        }
+    }
+
+    public func displayMin() {
+        guard frame.origin.y != self.superview!.bounds.size.height - self.mininumDisplayHeight else {
+            self.displayState = .minDisplay
+            return
+        }
+        self.isUserInteractionEnabled = false
+        UIView.animate(withDuration: 0.25, animations: {
+            var frame = self.frame
+            frame.origin.y = self.superview!.bounds.size.height - self.mininumDisplayHeight
+            self.frame = frame
+        }) { (finished) in
+            self.isUserInteractionEnabled = true
+            self.displayState = .minDisplay
+        }
+    }
+
+
+    fileprivate func refreshFrameByContentSize() {
         maxinumDisplayHeight = min(defaultMaxinumDisplayHeight, contentSize.height)
         mininumDisplayHeight = min(defaultMininumDisplayHeight, contentSize.height)
-        self.frame = CGRect(x: 0, y: self.superview!.bounds.size.height - self.maxinumDisplayHeight, width: self.superview!.bounds.size.width, height: self.maxinumDisplayHeight)
-        if displayState == .maxDisplay {
-            displayMax(animated: false)
-        }else {
-            displayMin(animated: false)
+        if self.frame.size.height != maxinumDisplayHeight {
+            var frame = self.frame
+            frame.size.height = maxinumDisplayHeight
+            self.frame = frame
         }
-    }
-
-    public func displayMax(animated: Bool) {
-        self.setContentOffset(CGPoint.zero, animated: animated)
-        self.displayState = .maxDisplay
-    }
-
-    public func displayMin(animated: Bool) {
-        self.setContentOffset(CGPoint(x: 0, y: mininumDisplayHeight - maxinumDisplayHeight), animated: animated)
-        self.displayState = .minDisplay
+        if displayState == .maxDisplay {
+            displayMax()
+        }else {
+            displayMin()
+        }
     }
 
     @objc fileprivate func startDisplayLink()  {
+        //用isTracking而不是isDragging，类似这种情况：https://stackoverflow.com/questions/22778832/uiscrollview-isdragging-returns-yes-when-no-scrollview-is-decelerating/22779303，有时候明明没有拖拽了，但isDragging依然是true
         if self.isTracking {
             isLastTracking = true
             didTracking()
@@ -135,10 +145,6 @@ open class JXBottomSheetTableView: UITableView {
             if isLastTracking {
                 isLastTracking = false
                 didEndTracking()
-            }else {
-                if displayState == .maxDisplay && self.isDragging && contentOffset.y < 0 {
-                    contentOffset = CGPoint.zero
-                }
             }
         }
     }
@@ -148,34 +154,41 @@ open class JXBottomSheetTableView: UITableView {
             didEndTracking()
             return
         }
+        let isInScrollableRange = (self.frame.origin.y > superview!.bounds.size.height - maxinumDisplayHeight) && (self.frame.origin.y <= superview!.bounds.size.height - mininumDisplayHeight)
+        let isScrollUp = self.contentOffset.y >= 0
+        if isInScrollableRange && isScrollUp {
+            var frame = self.frame
+            frame.origin.y -= self.contentOffset.y
+            let minY = self.superview!.bounds.size.height - self.maxinumDisplayHeight
+            let maxY = self.superview!.bounds.size.height - self.mininumDisplayHeight
+            frame.origin.y = max(minY, min(maxY, frame.origin.y))
+            self.frame = frame
+            if self.contentOffset.y != 0 {
+                self.setContentOffset(CGPoint.zero, animated: false)
+            }
+        }
     }
 
     fileprivate func didEndTracking() {
         if displayState == .minDisplay {
             if couldTrigger() {
-                if contentOffset.y < 0 {
-                    displayMax(animated: true)
-                }
-                displayState = .maxDisplay
+                displayMax()
             }else {
-                displayMin(animated: true)
+                displayMin()
             }
         }else {
             if couldTrigger() {
-                displayMin(animated: true)
+                displayMin()
             }else {
-                if contentOffset.y < 0 {
-                    displayMax(animated: true)
-                }
-                displayState = .maxDisplay
+                displayMax()
             }
         }
     }
 
     fileprivate func couldTrigger() -> Bool {
         if displayState == .minDisplay {
-            let minContentOffsetY = mininumDisplayHeight - maxinumDisplayHeight
-            if contentOffset.y - minContentOffsetY >= triggerDistance {
+            let minOriginalY = superview!.bounds.size.height - mininumDisplayHeight
+            if minOriginalY - frame.origin.y >= triggerDistance {
                 return true
             }
         }else {

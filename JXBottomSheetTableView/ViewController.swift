@@ -32,9 +32,9 @@ class ViewController: UIViewController {
 
         self.edgesForExtendedLayout = .left
 
-        tableView = JXBottomSheetTableView.init(frame: CGRect.zero, style: .plain)
-        tableView.displayState = .minDisplay
-        tableView.defaultMininumDisplayHeight = 100
+        let tableView = JXBottomSheetTableView.init(frame: CGRect.zero, style: .plain)
+        tableView.displayState = .maxDisplay
+        tableView.defaultMininumDisplayHeight = 150
         tableView.defaultMaxinumDisplayHeight = 400
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
             dataSource.removeLast()
             tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
         }else {
-            tableView.reloadData()
+            tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .none)
         }
         if dataSource.first == "空空如也" {
             headerLabel.text = "There is no dish"
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
             dataSource.append("空空如也")
             tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
         }else {
-            tableView.reloadData()
+            tableView.deleteRows(at: [IndexPath(row: 0, section: 0)], with: .none)
         }
         if dataSource.first == "空空如也" {
             headerLabel.text = "There is no dish"
@@ -93,11 +93,11 @@ class ViewController: UIViewController {
     }
 
     @objc func displayMax() {
-        tableView.displayMax(animated: true)
+        tableView.displayMax()
     }
 
     @objc func displayMin() {
-        tableView.displayMin(animated: true)
+        tableView.displayMin()
     }
 
 }
