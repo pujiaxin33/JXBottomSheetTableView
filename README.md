@@ -1,9 +1,9 @@
 # JXBottomSheetTableView
 A highly packaged, easy to use custom bottom sheet UITableView.
 
-**The other One scheme**
-Throungh control contentOffset,and the effect is better!
-Branch:https://github.com/pujiaxin33/JXBottomSheetTableView/tree/ControlContentOffset
+**The better scheme**
+Less limit and easy to use, check below:
+https://github.com/pujiaxin33/JXBottomSheetView
 
 # Features
 
