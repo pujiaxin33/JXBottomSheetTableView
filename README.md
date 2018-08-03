@@ -2,7 +2,7 @@
 A highly packaged, easy to use custom bottom sheet UITableView.
 
 **The better scheme**
-Less limit and easy to use, check below:
+Less limit and easy to use, check this:
 https://github.com/pujiaxin33/JXBottomSheetView
 
 # Features
